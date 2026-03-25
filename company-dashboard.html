@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SkillBridge AI — Company Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<script>tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{display:["'Poppins'","serif"],body:["'DM Sans'","sans-serif"]},colors:{brand:{50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81'},surf:{950:'#080b14',900:'#0d1117',850:'#0f1420',800:'#131926',750:'#161e2e',700:'#1a2236',600:'#1f2a40',500:'#253045'}}}}}</script>
+<style>
+*{font-family:'DM Sans',sans-serif;box-sizing:border-box;}
+.font-display{font-family:'Poppins',serif;}
+.sidebar-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;cursor:pointer;transition:all 0.18s;font-size:14px;font-weight:500;color:#64748b;text-decoration:none;}
+.sidebar-item:hover,.sidebar-item.active{background:rgba(16,185,129,0.1);color:#10b981;}
+.dark .sidebar-item.active{background:rgba(16,185,129,0.12);color:#34d399;}
+.card{border-radius:16px;padding:20px;transition:all 0.2s;}
+.dark .card{background:#131926;border:1px solid rgba(255,255,255,0.07);}
+.card{background:#fff;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,0.06);}
+.card:hover{transform:translateY(-1px);}
+.badge{padding:3px 10px;border-radius:99px;font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:5px;}
+.badge-blue{background:rgba(99,102,241,0.12);color:#818cf8;}
+.badge-green{background:rgba(16,185,129,0.12);color:#10b981;}
+.badge-amber{background:rgba(245,158,11,0.12);color:#f59e0b;}
+.badge-red{background:rgba(239,68,68,0.12);color:#ef4444;}
+.badge-purple{background:rgba(139,92,246,0.12);color:#8b5cf6;}
+.badge-teal{background:rgba(20,184,166,0.12);color:#14b8a6;}
+.btn-primary{background:linear-gradient(135deg,#10b981,#059669);color:#fff;border:none;border-radius:10px;padding:9px 18px;font-weight:600;font-size:13.5px;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;box-shadow:0 3px 10px rgba(16,185,129,0.28);}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 5px 15px rgba(16,185,129,0.4);}
+.btn-brand{background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;border:none;border-radius:10px;padding:9px 18px;font-weight:600;font-size:13.5px;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;box-shadow:0 3px 10px rgba(99,102,241,0.28);}
+.btn-brand:hover{transform:translateY(-1px);}
+.btn-secondary{border-radius:10px;padding:9px 18px;font-weight:600;font-size:13.5px;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
+.dark .btn-secondary{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#e2e8f0;}
+.btn-secondary{background:#f8fafc;border:1px solid #e2e8f0;color:#334155;}
+.btn-secondary:hover{border-color:#10b981;color:#10b981;}
+.progress-bar{height:6px;border-radius:3px;background:rgba(99,102,241,0.15);overflow:hidden;}
+.progress-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#10b981,#34d399);transition:width 0.8s ease;}
+.section{display:none;}
+.section.active{display:block;animation:secIn 0.3s ease;}
+@keyframes secIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.topbar{height:60px;display:flex;align-items:center;padding:0 24px;border-bottom:1px solid;position:sticky;top:0;z-index:30;}
+.dark .topbar{background:#0d1117;border-color:rgba(255,255,255,0.07);}
+.topbar{background:#fff;border-color:#e2e8f0;}
+.avatar{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#10b981,#059669);display:flex;align-items:center;justify-content:center;color:white;font-size:13px;font-weight:700;flex-shrink:0;}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);z-index:50;display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal-box{width:100%;max-width:580px;border-radius:20px;overflow:hidden;max-height:90vh;overflow-y:auto;animation:modalIn 0.3s cubic-bezier(0.16,1,0.3,1);}
+.dark .modal-box{background:#131926;border:1px solid rgba(255,255,255,0.1);}
+.modal-box{background:#fff;border:1px solid #e2e8f0;box-shadow:0 20px 60px rgba(0,0,0,0.2);}
+@keyframes modalIn{from{opacity:0;transform:scale(0.95);}to{opacity:1;transform:scale(1);}}
+.input-base{width:100%;padding:9px 13px;border-radius:9px;font-size:14px;transition:all 0.2s;outline:none;font-family:'DM Sans',sans-serif;}
+.dark .input-base{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#797777;}
+.dark .input-base::placeholder{color:rgba(148,163,184,0.5);}
+.dark .input-base:focus{border-color:#10b981;}
+.input-base{background:#f8fafc;border:1px solid #e2e8f0;color:#0f172a;}
+.input-base:focus{border-color:#10b981;box-shadow:0 0 0 3px rgba(16,185,129,0.1);}
+.kanban-col{border-radius:14px;padding:14px;min-height:300px;min-width:200px;}
+.dark .kanban-col{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);}
+.kanban-col{background:#f8fafc;border:1px solid #e2e8f0;}
+.kanban-card{border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;transition:all 0.15s;}
+.dark .kanban-card{background:#1a2236;border:1px solid rgba(255,255,255,0.08);}
+.kanban-card{background:#fff;border:1px solid #e2e8f0;box-shadow:0 1px 3px rgba(0,0,0,0.06);}
+.kanban-card:hover{transform:translateY(-2px);}
+.dark .kanban-card:hover{border-color:rgba(16,185,129,0.3);box-shadow:0 4px 12px rgba(16,185,129,0.1);}
+.kanban-card:hover{box-shadow:0 4px 12px rgba(0,0,0,0.1);border-color:#a7f3d0;}
+.job-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:8px;font-size:11.5px;font-weight:600;}
+.candidate-row{padding:14px 0;border-bottom:1px solid;cursor:pointer;transition:all 0.15s;}
+.dark .candidate-row{border-color:rgba(255,255,255,0.06);}
+.candidate-row{border-color:#e2e8f0;}
+.candidate-row:hover{background:rgba(16,185,129,0.04);}
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-thumb{background:rgba(16,185,129,0.3);border-radius:2px;}
+</style>
+</head>
+<body class="dark:bg-surf-950 bg-slate-50 overflow-hidden h-screen">
+<div class="flex h-screen overflow-hidden">
+
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside id="sidebar" class="w-64 flex flex-col flex-shrink-0 dark:bg-surf-900 bg-white border-r dark:border-slate-700 border-slate-200 overflow-y-auto" style="transition:width 0.3s">
+    <div class="flex items-center gap-3 px-5 py-5 flex-shrink-0">
+      <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center flex-shrink-0">
+        <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+      </div>
+      <span class="font-display text-lg italic dark:text-white text-slate-900">SkillBridge <span class="text-emerald-500 not-italic font-bold">AI</span></span>
+    </div>
+    <div class="px-4 mb-4">
+      <div class="flex items-center gap-3 p-3 rounded-xl dark:bg-surf-800 bg-slate-50 border dark:border-slate-700 border-slate-200">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white text-sm font-bold flex-shrink-0">TK</div>
+        <div class="min-w-0">
+          <div class="text-sm font-semibold dark:text-white text-slate-800 truncate">PT Tokopedia</div>
+          <div class="text-xs dark:text-slate-400 text-slate-500">Verified Company</div>
+        </div>
+        <span class="badge badge-green !py-0.5 !px-2 text-xs">Premium</span>
+      </div>
+    </div>
+    <nav class="flex-1 px-3 space-y-1 pb-4">
+      <p class="text-xs font-semibold uppercase tracking-wider dark:text-slate-600 text-slate-400 px-3 py-2">Hiring</p>
+      <a class="sidebar-item active" onclick="showSection('overview',this)"><svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>Overview</a>
+      <a class="sidebar-item" onclick="showSection('postjob',this)"><svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>Post a Job</a>
+      <a class="sidebar-item" onclick="showSection('jobs',this)"><svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg><span>Job Listings</span><span class="ml-auto text-xs dark:bg-surf-600 bg-slate-200 dark:text-slate-300 text-slate-600 rounded-full px-1.5 py-0.5">4</span></a>
+      <a class="sidebar-item" onclick="showSection('applicants',this)"><svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg><span>Applicants</span><span class="ml-auto text-xs bg-emerald-500 text-white rounded-full px-1.5 py-0.5">24</span></a>
+      <a class="sidebar-item" onclick="showSection('kanban',this)"><svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>Hiring Pipeline</a>
+    </nav>
+    <div class="px-3 pb-4 border-t dark:border-slate-700 border-slate-200 pt-3 space-y-1">
+      <button onclick="document.documentElement.classList.toggle('dark')" class="sidebar-item w-full">
+        <svg class="w-4 h-4 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        <svg class="w-4 h-4 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+        Toggle Theme
+      </button>
+      <a href="auth.html" class="sidebar-item"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>Sign Out</a>
+    </div>
+  </aside>
+
+  <!-- ═══ MAIN ═══ -->
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <div class="topbar">
+      <button onclick="toggleSidebar()" class="mr-4 p-2 rounded-lg dark:text-slate-400 text-slate-500 dark:hover:bg-surf-700 hover:bg-slate-100 transition-colors"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+      <div class="flex-1"><h1 id="pageTitle" class="font-display text-xl dark:text-white text-slate-900">Company Overview</h1></div>
+      <div class="flex items-center gap-3">
+        <button onclick="showSection('postjob',null)" class="btn-primary !py-2 !text-sm flex items-center gap-2"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>Post Job</button>
+        <button class="relative p-2 rounded-lg dark:text-slate-400 text-slate-500 dark:hover:bg-surf-700 hover:bg-slate-100 transition-colors"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg><span class="absolute top-1.5 right-1.5 w-2 h-2 bg-emerald-500 rounded-full"></span></button>
+        <div class="avatar">TK</div>
+      </div>
+    </div>
+
+    <div class="flex-1 overflow-y-auto dark:bg-surf-950 bg-slate-50 p-6">
+
+      <!-- ─── OVERVIEW ─── -->
+      <div id="sec-overview" class="section active">
+        <div class="dark:bg-gradient-to-br dark:from-emerald-900/30 dark:to-surf-800 bg-gradient-to-br from-emerald-50 to-teal-50 border dark:border-emerald-800/30 border-emerald-100 rounded-2xl p-6 mb-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium text-emerald-600 dark:text-emerald-400 mb-1">Welcome back, PT Tokopedia 🏢</p>
+              <h2 class="font-display text-2xl italic dark:text-white text-slate-900 mb-2">Hiring Dashboard</h2>
+              <p class="text-sm dark:text-slate-400 text-slate-600">You have <strong class="dark:text-white text-slate-800">24 new applicants</strong> this week. <strong class="dark:text-white text-slate-800">8 candidates</strong> match your criteria at 85%+ AI score.</p>
+            </div>
+            <div class="hidden md:flex items-center gap-4">
+              <div class="text-center"><div class="font-display text-3xl italic dark:text-white text-slate-900">24</div><div class="text-xs dark:text-slate-400 text-slate-500">New This Week</div></div>
+              <div class="text-center"><div class="font-display text-3xl italic text-emerald-500">8</div><div class="text-xs dark:text-slate-400 text-slate-500">High Match</div></div>
+            </div>
+          </div>
+          <div class="flex gap-3 mt-4">
+            <button onclick="showSection('applicants',null)" class="btn-primary">View Applicants</button>
+            <button onclick="showSection('postjob',null)" class="btn-secondary">+ Post New Job</button>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <div class="card"><div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-3"><svg class="w-5 h-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div><div class="font-display text-3xl italic dark:text-white text-slate-900">4</div><div class="text-sm dark:text-slate-400 text-slate-500 mt-1">Active Job Posts</div></div>
+          <div class="card"><div class="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center mb-3"><svg class="w-5 h-5 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div><div class="font-display text-3xl italic dark:text-white text-slate-900">47</div><div class="text-sm dark:text-slate-400 text-slate-500 mt-1">Total Applicants</div></div>
+          <div class="card"><div class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center mb-3"><svg class="w-5 h-5 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg></div><div class="font-display text-3xl italic dark:text-white text-slate-900">6</div><div class="text-sm dark:text-slate-400 text-slate-500 mt-1">In Interview Stage</div></div>
+          <div class="card"><div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center mb-3"><svg class="w-5 h-5 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg></div><div class="font-display text-3xl italic dark:text-white text-slate-900">3</div><div class="text-sm dark:text-slate-400 text-slate-500 mt-1">Hired This Month</div></div>
+        </div>
+
+        <!-- Quick overview of top candidates -->
+        <div class="card">
+          <div class="flex items-center justify-between mb-4"><h3 class="font-semibold dark:text-white text-slate-800">🤖 Top AI-Matched Candidates</h3><button onclick="showSection('applicants',null)" class="text-sm text-emerald-500 hover:underline">View all</button></div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead><tr class="dark:text-slate-500 text-slate-400 text-xs uppercase tracking-wider"><th class="text-left pb-3 pr-4">Candidate</th><th class="text-left pb-3 pr-4">Position</th><th class="text-left pb-3 pr-4">School</th><th class="text-left pb-3 pr-4">Top Skills</th><th class="text-left pb-3 pr-4">AI Match</th><th class="text-left pb-3">Actions</th></tr></thead>
+              <tbody>
+                <tr class="candidate-row"><td class="pr-4"><div class="flex items-center gap-2"><div class="w-8 h-8 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-500 text-xs font-bold">BS</div><span class="font-medium dark:text-white text-slate-800">Budi Santoso</span></div></td><td class="pr-4 dark:text-slate-400 text-slate-600">UI/UX Intern</td><td class="pr-4 dark:text-slate-400 text-slate-500 text-xs">SMK N1 Jakarta</td><td class="pr-4"><div class="flex gap-1"><span class="badge badge-blue !text-xs">Figma</span><span class="badge badge-blue !text-xs">React</span></div></td><td class="pr-4"><span class="badge badge-green">91%</span></td><td><div class="flex gap-2"><button class="btn-primary !py-1 !text-xs" onclick="openCandidateModal('Budi Santoso','UI/UX Intern','91%','React, Figma, Node.js, Python')">View</button><button class="btn-secondary !py-1 !text-xs">Invite</button></div></td></tr>
+                <tr class="candidate-row"><td class="pr-4"><div class="flex items-center gap-2"><div class="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center text-green-500 text-xs font-bold">AR</div><span class="font-medium dark:text-white text-slate-800">Anisa Rahayu</span></div></td><td class="pr-4 dark:text-slate-400 text-slate-600">Frontend Dev</td><td class="pr-4 dark:text-slate-400 text-slate-500 text-xs">SMK N2 Surabaya</td><td class="pr-4"><div class="flex gap-1"><span class="badge badge-green !text-xs">React</span><span class="badge badge-green !text-xs">TS</span></div></td><td class="pr-4"><span class="badge badge-green">88%</span></td><td><div class="flex gap-2"><button class="btn-primary !py-1 !text-xs" onclick="openCandidateModal('Anisa Rahayu','Frontend Dev','88%','React, TypeScript, CSS, Git')">View</button><button class="btn-secondary !py-1 !text-xs">Invite</button></div></td></tr>
+                <tr class="candidate-row"><td class="pr-4"><div class="flex items-center gap-2"><div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-500 text-xs font-bold">RW</div><span class="font-medium dark:text-white text-slate-800">Riko Wibowo</span></div></td><td class="pr-4 dark:text-slate-400 text-slate-600">Backend Intern</td><td class="pr-4 dark:text-slate-400 text-slate-500 text-xs">SMK Bhakti Ibu</td><td class="pr-4"><div class="flex gap-1"><span class="badge badge-purple !text-xs">Node</span><span class="badge badge-purple !text-xs">SQL</span></div></td><td class="pr-4"><span class="badge badge-amber">85%</span></td><td><div class="flex gap-2"><button class="btn-primary !py-1 !text-xs" onclick="openCandidateModal('Riko Wibowo','Backend Intern','85%','Node.js, MySQL, Python, REST API')">View</button><button class="btn-secondary !py-1 !text-xs">Invite</button></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── POST JOB ─── -->
+      <div id="sec-postjob" class="section">
+        <div class="max-w-2xl mx-auto">
+          <div class="card">
+            <h2 class="font-display text-2xl italic dark:text-white text-slate-900 mb-6">Post a New Job / Internship</h2>
+            <div class="space-y-5">
+              <div class="grid grid-cols-2 gap-4">
+                <div class="col-span-2"><label class="block text-sm dark:text-slate-400 text-slate-500 mb-1.5">Job Title *</label><input class="input-base" placeholder="e.g. UI/UX Design Intern"/></div>
+                <div><label class="block text-sm dark:text-slate-400 text-slate-500 mb-1.5">Type *</label><select class="input-base"><option>Internship</option><option>Full-time</option><option>Part-time</option><option>Contract</option></select></div>
+                <div><label class="block text-sm dark:text-slate-400 text-slate-500 mb-1.5">Department</label><input class="input-base" placeholder="e.g. Engineering"/></div>
+                <div><label class="block text-sm dark:text-slate-400 text-slate-500 mb-1.5">Location</label><input class="input-base" placeholder="Jakarta / Remote / Hybrid"/></div>
+                <div><label class="block text-sm dark:text-slate-400 text-slate-500 mb-1.5">Salary / Stipend</label><input class="input-base" placeholder="Rp 3.000.000 - 5.000.000/mo"/></div>
+                <div><label class="block text-sm dark:text-slate-400 text-slate-500 mb-1.5">Duration</label><input class="input-base" placeholder="3 months / Permanent"/></div>
+                <div><label class="block text-sm dark:text-slate-400 text-slate-500 mb-1.5">Slots Available</label><input type="number" class="input-base" value="3"/></div>
+              </div>
+              <div><label class="block text-sm dark:text-slate-400 text-slate-500 mb-1.5">Required Skills (comma separated)</label><input class="input-base" placeholder="Figma, React.js, CSS, JavaScript, English"/></div>
+              <div><label class="block text-sm dark:text-slate-400 text-slate-500 mb-1.5">Minimum Education</label><select class="input-base"><option>SMK / Vocational</option><option>D3</option><option>S1</option></select></div>
+              <div><label class="block text-sm dark:text-slate-400 text-slate-500 mb-1.5">Job Description *</label><textarea class="input-base !min-h-[120px]" placeholder="Describe the role, responsibilities, requirements, and what candidates will learn..."></textarea></div>
+              <div><label class="block text-sm dark:text-slate-400 text-slate-500 mb-1.5">Application Deadline</label><input type="date" class="input-base"/></div>
+
+              <!-- AI match preview -->
+              <div class="dark:bg-brand-900/20 bg-brand-50 border dark:border-brand-800/30 border-brand-100 rounded-xl p-4">
+                <div class="flex items-center gap-2 mb-2"><span class="text-lg">🤖</span><span class="font-semibold dark:text-brand-300 text-brand-600">AI Match Preview</span></div>
+                <p class="text-sm dark:text-slate-400 text-slate-600">Based on your requirements, SkillBridge AI estimates <strong class="dark:text-white text-slate-800">18-24 qualified candidates</strong> in our database with 75%+ match score. After posting, AI will automatically rank and notify top candidates.</p>
+              </div>
+
+              <div class="flex gap-3">
+                <button class="btn-primary flex-1" onclick="submitJob()">🚀 Publish Job Post</button>
+                <button class="btn-secondary flex-1">Save as Draft</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── JOB LISTINGS ─── -->
+      <div id="sec-jobs" class="section">
+        <div class="flex items-center justify-between mb-5">
+          <h2 class="font-display text-2xl italic dark:text-white text-slate-900">Job Listings</h2>
+          <button onclick="showSection('postjob',null)" class="btn-primary flex items-center gap-2"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>Post New</button>
+        </div>
+        <div class="space-y-4">
+          <div class="card">
+            <div class="flex items-start justify-between mb-3">
+              <div>
+                <h3 class="font-semibold dark:text-white text-slate-800 text-base">UI/UX Design Intern</h3>
+                <p class="text-sm dark:text-slate-400 text-slate-500 mt-0.5">Design Team • Jakarta • 3 months • Rp 3-5jt/mo</p>
+              </div>
+              <div class="flex gap-2"><span class="badge badge-green">Active</span><span class="badge badge-blue">Internship</span></div>
+            </div>
+            <div class="flex flex-wrap gap-1.5 mb-3"><span class="text-xs dark:bg-surf-700 bg-slate-100 dark:text-slate-300 text-slate-600 rounded-lg px-2.5 py-1">Figma</span><span class="text-xs dark:bg-surf-700 bg-slate-100 dark:text-slate-300 text-slate-600 rounded-lg px-2.5 py-1">React</span><span class="text-xs dark:bg-surf-700 bg-slate-100 dark:text-slate-300 text-slate-600 rounded-lg px-2.5 py-1">CSS</span><span class="text-xs dark:bg-surf-700 bg-slate-100 dark:text-slate-300 text-slate-600 rounded-lg px-2.5 py-1">Prototyping</span></div>
+            <div class="flex items-center justify-between text-sm">
+              <div class="flex items-center gap-4 dark:text-slate-400 text-slate-500"><span>👥 18 applicants</span><span>🤖 12 AI-matched</span><span>📅 Deadline: Jan 30</span></div>
+              <div class="flex gap-2"><button class="btn-secondary !py-1.5 !text-xs" onclick="showSection('applicants',null)">View Applicants</button><button class="btn-secondary !py-1.5 !text-xs text-red-400">Close</button></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="flex items-start justify-between mb-3">
+              <div>
+                <h3 class="font-semibold dark:text-white text-slate-800 text-base">Frontend Developer Intern</h3>
+                <p class="text-sm dark:text-slate-400 text-slate-500 mt-0.5">Engineering • Jakarta/Remote • 6 months • Rp 4-6jt/mo</p>
+              </div>
+              <div class="flex gap-2"><span class="badge badge-green">Active</span><span class="badge badge-blue">Internship</span></div>
+            </div>
+            <div class="flex flex-wrap gap-1.5 mb-3"><span class="text-xs dark:bg-surf-700 bg-slate-100 dark:text-slate-300 text-slate-600 rounded-lg px-2.5 py-1">React.js</span><span class="text-xs dark:bg-surf-700 bg-slate-100 dark:text-slate-300 text-slate-600 rounded-lg px-2.5 py-1">TypeScript</span><span class="text-xs dark:bg-surf-700 bg-slate-100 dark:text-slate-300 text-slate-600 rounded-lg px-2.5 py-1">Node.js</span></div>
+            <div class="flex items-center justify-between text-sm">
+              <div class="flex items-center gap-4 dark:text-slate-400 text-slate-500"><span>👥 22 applicants</span><span>🤖 15 AI-matched</span><span>📅 Deadline: Feb 15</span></div>
+              <div class="flex gap-2"><button class="btn-secondary !py-1.5 !text-xs" onclick="showSection('applicants',null)">View Applicants</button><button class="btn-secondary !py-1.5 !text-xs text-red-400">Close</button></div>
+            </div>
+          </div>
+          <div class="card dark:bg-surf-800 dark:border-white/5">
+            <div class="flex items-start justify-between mb-3">
+              <div>
+                <h3 class="font-semibold dark:text-slate-400 text-slate-500 text-base">Data Analyst Intern</h3>
+                <p class="text-sm dark:text-slate-500 text-slate-400 mt-0.5">Analytics • Jakarta • 3 months • Filled</p>
+              </div>
+              <div class="flex gap-2"><span class="badge badge-red">Closed</span></div>
+            </div>
+            <div class="text-sm dark:text-slate-500 text-slate-400">7 hires • Closed Jan 5, 2025</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── APPLICANTS ─── -->
+      <div id="sec-applicants" class="section">
+        <div class="flex flex-wrap items-center gap-3 mb-5">
+          <input type="text" class="input-base flex-1 !py-2" placeholder="Search candidates by name, skill..."/>
+          <select class="input-base !py-2 !w-auto"><option>All Positions</option><option>UI/UX Intern</option><option>Frontend Dev</option></select>
+          <select class="input-base !py-2 !w-auto"><option>All Match</option><option>90%+</option><option>80-89%</option><option>70-79%</option></select>
+          <button class="btn-primary !py-2">Filter</button>
+        </div>
+        <div class="card">
+          <div class="flex items-center justify-between mb-5">
+            <h3 class="font-semibold dark:text-white text-slate-800 text-lg">All Applicants</h3>
+            <div class="flex gap-2"><span class="badge badge-blue">47 Total</span><span class="badge badge-green">24 New</span><span class="badge badge-amber">6 Interview</span></div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead><tr class="dark:text-slate-500 text-slate-400 text-xs uppercase tracking-wider"><th class="text-left pb-3 pr-4">Candidate</th><th class="text-left pb-3 pr-4">Position</th><th class="text-left pb-3 pr-4">Skills</th><th class="text-left pb-3 pr-4">AI Match</th><th class="text-left pb-3 pr-4">Applied</th><th class="text-left pb-3">Status</th><th class="text-left pb-3">Actions</th></tr></thead>
+              <tbody>
+                <tr class="candidate-row"><td class="pr-4"><div class="flex items-center gap-2.5"><div class="w-8 h-8 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-500 text-xs font-bold">BS</div><div><div class="font-medium dark:text-white text-slate-800">Budi Santoso</div><div class="text-xs dark:text-slate-500 text-slate-400">SMK N1 Jakarta</div></div></div></td><td class="pr-4 dark:text-slate-400 text-slate-600">UI/UX Intern</td><td class="pr-4"><div class="flex gap-1 flex-wrap"><span class="badge badge-blue !text-xs">Figma</span><span class="badge badge-blue !text-xs">React</span></div></td><td class="pr-4"><div class="flex items-center gap-2"><div class="w-16 progress-bar"><div class="progress-fill" style="width:91%"></div></div><span class="badge badge-green">91%</span></div></td><td class="pr-4 dark:text-slate-400 text-slate-500 text-xs">Jan 15</td><td class="pr-4"><span class="badge badge-amber">Interview</span></td><td><div class="flex gap-1.5"><button class="btn-primary !py-1 !text-xs" onclick="openCandidateModal('Budi Santoso','UI/UX Intern','91%','React, Figma, Node.js')">Profile</button><button class="btn-secondary !py-1 !text-xs !text-emerald-500">Hire</button></div></td></tr>
+                <tr class="candidate-row"><td class="pr-4"><div class="flex items-center gap-2.5"><div class="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center text-green-500 text-xs font-bold">AR</div><div><div class="font-medium dark:text-white text-slate-800">Anisa Rahayu</div><div class="text-xs dark:text-slate-500 text-slate-400">SMK N2 Surabaya</div></div></div></td><td class="pr-4 dark:text-slate-400 text-slate-600">Frontend Dev</td><td class="pr-4"><div class="flex gap-1 flex-wrap"><span class="badge badge-green !text-xs">React</span><span class="badge badge-green !text-xs">TS</span></div></td><td class="pr-4"><div class="flex items-center gap-2"><div class="w-16 progress-bar"><div class="progress-fill" style="width:88%"></div></div><span class="badge badge-green">88%</span></div></td><td class="pr-4 dark:text-slate-400 text-slate-500 text-xs">Jan 14</td><td class="pr-4"><span class="badge badge-amber">Interview</span></td><td><div class="flex gap-1.5"><button class="btn-primary !py-1 !text-xs" onclick="openCandidateModal('Anisa Rahayu','Frontend Dev','88%','React, TypeScript, CSS')">Profile</button><button class="btn-secondary !py-1 !text-xs !text-emerald-500">Hire</button></div></td></tr>
+                <tr class="candidate-row"><td class="pr-4"><div class="flex items-center gap-2.5"><div class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-500 text-xs font-bold">RW</div><div><div class="font-medium dark:text-white text-slate-800">Riko Wibowo</div><div class="text-xs dark:text-slate-500 text-slate-400">SMK Bhakti Ibu</div></div></div></td><td class="pr-4 dark:text-slate-400 text-slate-600">Backend Intern</td><td class="pr-4"><div class="flex gap-1 flex-wrap"><span class="badge badge-purple !text-xs">Node</span><span class="badge badge-purple !text-xs">SQL</span></div></td><td class="pr-4"><div class="flex items-center gap-2"><div class="w-16 progress-bar"><div class="progress-fill" style="width:85%"></div></div><span class="badge badge-green">85%</span></div></td><td class="pr-4 dark:text-slate-400 text-slate-500 text-xs">Jan 13</td><td class="pr-4"><span class="badge badge-blue">Screening</span></td><td><div class="flex gap-1.5"><button class="btn-primary !py-1 !text-xs" onclick="openCandidateModal('Riko Wibowo','Backend Intern','85%','Node.js, MySQL, Python')">Profile</button><button class="btn-secondary !py-1 !text-xs">Invite</button></div></td></tr>
+                <tr class="candidate-row"><td class="pr-4"><div class="flex items-center gap-2.5"><div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-500 text-xs font-bold">SK</div><div><div class="font-medium dark:text-white text-slate-800">Sinta Kurnia</div><div class="text-xs dark:text-slate-500 text-slate-400">SMK N3 Bandung</div></div></div></td><td class="pr-4 dark:text-slate-400 text-slate-600">UI/UX Intern</td><td class="pr-4"><div class="flex gap-1 flex-wrap"><span class="badge badge-amber !text-xs">Figma</span><span class="badge badge-amber !text-xs">CSS</span></div></td><td class="pr-4"><div class="flex items-center gap-2"><div class="w-16 progress-bar"><div class="progress-fill" style="width:79%"></div></div><span class="badge badge-amber">79%</span></div></td><td class="pr-4 dark:text-slate-400 text-slate-500 text-xs">Jan 12</td><td class="pr-4"><span class="badge badge-blue">Applied</span></td><td><div class="flex gap-1.5"><button class="btn-primary !py-1 !text-xs" onclick="openCandidateModal('Sinta Kurnia','UI/UX Intern','79%','Figma, CSS, HTML, Canva')">Profile</button><button class="btn-secondary !py-1 !text-xs">Invite</button></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── HIRING PIPELINE / KANBAN ─── -->
+      <div id="sec-kanban" class="section">
+        <div class="flex items-center justify-between mb-5">
+          <h2 class="font-display text-2xl italic dark:text-white text-slate-900">Hiring Pipeline</h2>
+          <div class="flex gap-2"><span class="badge badge-blue">47 candidates</span><select class="input-base !py-1.5 !text-sm !w-auto">><option>All Positions</option><option>UI/UX Intern</option><option>Frontend Dev</option></select></div>
+        </div>
+        <div class="overflow-x-auto pb-4">
+          <div class="flex gap-4 min-w-max">
+            <!-- Applied -->
+            <div class="kanban-col w-56">
+              <div class="flex items-center justify-between mb-3"><h4 class="font-semibold text-sm dark:text-white text-slate-700">Applied</h4><span class="w-5 h-5 rounded-full bg-slate-500/20 flex items-center justify-center text-xs dark:text-slate-400 text-slate-600 font-bold">12</span></div>
+              <div class="kanban-card" onclick="openCandidateModal('Mei Susanti','UI/UX','72%','Figma, CSS')"><div class="flex items-center gap-2 mb-2"><div class="w-6 h-6 rounded-md bg-slate-400 flex items-center justify-center text-white text-xs font-bold">MS</div><span class="text-xs font-medium dark:text-white text-slate-700">Mei Susanti</span></div><div class="text-xs dark:text-slate-400 text-slate-500 mb-2">UI/UX Intern</div><span class="badge badge-blue !text-xs">72%</span></div>
+              <div class="kanban-card" onclick="openCandidateModal('Ahmad Fauzi','Frontend Dev','68%','React, JS')"><div class="flex items-center gap-2 mb-2"><div class="w-6 h-6 rounded-md bg-amber-400 flex items-center justify-center text-white text-xs font-bold">AF</div><span class="text-xs font-medium dark:text-white text-slate-700">Ahmad Fauzi</span></div><div class="text-xs dark:text-slate-400 text-slate-500 mb-2">Frontend Dev</div><span class="badge badge-amber !text-xs">68%</span></div>
+            </div>
+            <!-- Screening -->
+            <div class="kanban-col w-56">
+              <div class="flex items-center justify-between mb-3"><h4 class="font-semibold text-sm dark:text-white text-slate-700">Screening</h4><span class="w-5 h-5 rounded-full bg-brand-500/20 flex items-center justify-center text-xs text-brand-400 font-bold">8</span></div>
+              <div class="kanban-card" onclick="openCandidateModal('Riko Wibowo','Backend','85%','Node, SQL')"><div class="flex items-center gap-2 mb-2"><div class="w-6 h-6 rounded-md bg-purple-500 flex items-center justify-center text-white text-xs font-bold">RW</div><span class="text-xs font-medium dark:text-white text-slate-700">Riko Wibowo</span></div><div class="text-xs dark:text-slate-400 text-slate-500 mb-2">Backend Intern</div><span class="badge badge-green !text-xs">85%</span></div>
+              <div class="kanban-card" onclick="openCandidateModal('Sinta Kurnia','UI/UX','79%','Figma, CSS')"><div class="flex items-center gap-2 mb-2"><div class="w-6 h-6 rounded-md bg-amber-500 flex items-center justify-center text-white text-xs font-bold">SK</div><span class="text-xs font-medium dark:text-white text-slate-700">Sinta Kurnia</span></div><div class="text-xs dark:text-slate-400 text-slate-500 mb-2">UI/UX Intern</div><span class="badge badge-amber !text-xs">79%</span></div>
+            </div>
+            <!-- Interview -->
+            <div class="kanban-col w-56" style="border-color:rgba(245,158,11,0.3);">
+              <div class="flex items-center justify-between mb-3"><h4 class="font-semibold text-sm dark:text-white text-slate-700">Interview</h4><span class="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center text-xs text-amber-500 font-bold">6</span></div>
+              <div class="kanban-card" onclick="openCandidateModal('Budi Santoso','UI/UX','91%','React, Figma')"><div class="flex items-center gap-2 mb-2"><div class="w-6 h-6 rounded-md bg-brand-500 flex items-center justify-center text-white text-xs font-bold">BS</div><span class="text-xs font-medium dark:text-white text-slate-700">Budi Santoso</span></div><div class="text-xs dark:text-slate-400 text-slate-500 mb-2">UI/UX Intern</div><div class="flex items-center justify-between"><span class="badge badge-green !text-xs">91%</span><span class="text-xs dark:text-slate-500 text-slate-400">Tomorrow</span></div></div>
+              <div class="kanban-card" onclick="openCandidateModal('Anisa Rahayu','Frontend Dev','88%','React, TS')"><div class="flex items-center gap-2 mb-2"><div class="w-6 h-6 rounded-md bg-green-500 flex items-center justify-center text-white text-xs font-bold">AR</div><span class="text-xs font-medium dark:text-white text-slate-700">Anisa Rahayu</span></div><div class="text-xs dark:text-slate-400 text-slate-500 mb-2">Frontend Dev</div><div class="flex items-center justify-between"><span class="badge badge-green !text-xs">88%</span><span class="text-xs dark:text-slate-500 text-slate-400">Jan 18</span></div></div>
+            </div>
+            <!-- Offer -->
+            <div class="kanban-col w-56">
+              <div class="flex items-center justify-between mb-3"><h4 class="font-semibold text-sm dark:text-white text-slate-700">Offer Sent</h4><span class="w-5 h-5 rounded-full bg-purple-500/20 flex items-center justify-center text-xs text-purple-400 font-bold">4</span></div>
+              <div class="kanban-card"><div class="flex items-center gap-2 mb-2"><div class="w-6 h-6 rounded-md bg-teal-500 flex items-center justify-center text-white text-xs font-bold">LP</div><span class="text-xs font-medium dark:text-white text-slate-700">Lina Permata</span></div><div class="text-xs dark:text-slate-400 text-slate-500 mb-2">Frontend Dev</div><span class="badge badge-purple !text-xs">Pending</span></div>
+            </div>
+            <!-- Hired -->
+            <div class="kanban-col w-56" style="border-color:rgba(16,185,129,0.3);">
+              <div class="flex items-center justify-between mb-3"><h4 class="font-semibold text-sm dark:text-white text-slate-700">Hired ✓</h4><span class="w-5 h-5 rounded-full bg-emerald-500/20 flex items-center justify-center text-xs text-emerald-500 font-bold">3</span></div>
+              <div class="kanban-card" style="border-color:rgba(16,185,129,0.3);"><div class="flex items-center gap-2 mb-2"><div class="w-6 h-6 rounded-md bg-emerald-500 flex items-center justify-center text-white text-xs font-bold">HD</div><span class="text-xs font-medium dark:text-white text-slate-700">Hendra D.</span></div><div class="text-xs dark:text-slate-400 text-slate-500 mb-2">Backend Intern</div><span class="badge badge-green !text-xs">Hired Jan 10</span></div>
+              <div class="kanban-card" style="border-color:rgba(16,185,129,0.3);"><div class="flex items-center gap-2 mb-2"><div class="w-6 h-6 rounded-md bg-emerald-600 flex items-center justify-center text-white text-xs font-bold">NF</div><span class="text-xs font-medium dark:text-white text-slate-700">Nita F.</span></div><div class="text-xs dark:text-slate-400 text-slate-500 mb-2">UI/UX Intern</div><span class="badge badge-green !text-xs">Hired Dec 20</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CANDIDATE PROFILE MODAL ═══ -->
+<div id="candidateModal" class="modal-overlay hidden" onclick="closeModal()">
+  <div class="modal-box !max-w-xl" onclick="event.stopPropagation()">
+    <div class="dark:bg-gradient-to-br dark:from-emerald-900/40 dark:to-surf-800 bg-gradient-to-br from-emerald-50 to-teal-50 p-6 border-b dark:border-white/8 border-emerald-100">
+      <div class="flex items-start justify-between">
+        <div class="flex items-center gap-4">
+          <div id="candAvatar" class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-white text-xl font-bold">BS</div>
+          <div>
+            <h3 id="candName" class="font-display text-xl italic dark:text-white text-slate-900">Budi Santoso</h3>
+            <p id="candPos" class="text-sm dark:text-slate-400 text-slate-600">UI/UX Intern</p>
+            <div class="flex gap-2 mt-1.5"><span id="candMatch" class="badge badge-green">91% Match</span><span class="badge badge-blue">SMK Graduate</span></div>
+          </div>
+        </div>
+        <button onclick="closeModal()" class="p-2 rounded-lg dark:hover:bg-surf-700 hover:bg-white dark:text-slate-400 text-slate-500"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button>
+      </div>
+    </div>
+    <div class="p-6 space-y-4">
+      <div>
+        <h4 class="text-sm font-semibold dark:text-slate-300 text-slate-700 mb-2">Top Skills</h4>
+        <div id="candSkills" class="flex flex-wrap gap-2"></div>
+      </div>
+      <div class="grid grid-cols-2 gap-3 text-sm">
+        <div class="p-3 rounded-xl dark:bg-surf-800 bg-slate-50 border dark:border-slate-700 border-slate-200"><span class="dark:text-slate-400 text-slate-500">Education</span><div class="font-medium dark:text-white text-slate-800 mt-0.5">SMK Negeri 1 Jakarta</div></div>
+        <div class="p-3 rounded-xl dark:bg-surf-800 bg-slate-50 border dark:border-slate-700 border-slate-200"><span class="dark:text-slate-400 text-slate-500">AI Match Score</span><div id="candScore" class="font-display text-xl italic text-emerald-500 mt-0.5">91%</div></div>
+      </div>
+      <div>
+        <h4 class="text-sm font-semibold dark:text-slate-300 text-slate-700 mb-2">Skill Readiness</h4>
+        <div class="space-y-2">
+          <div><div class="flex justify-between text-xs mb-1"><span class="dark:text-slate-400 text-slate-500">Technical Match</span><span>90%</span></div><div class="progress-bar"><div class="progress-fill" style="width:90%"></div></div></div>
+          <div><div class="flex justify-between text-xs mb-1"><span class="dark:text-slate-400 text-slate-500">Portfolio Quality</span><span>85%</span></div><div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div></div>
+          <div><div class="flex justify-between text-xs mb-1"><span class="dark:text-slate-400 text-slate-500">Communication</span><span>78%</span></div><div class="progress-bar"><div class="progress-fill" style="width:78%"></div></div></div>
+        </div>
+      </div>
+      <div class="flex gap-3">
+        <button class="btn-primary flex-1" onclick="closeModal()">✓ Move to Interview</button>
+        <button class="btn-brand flex-1" onclick="closeModal()">📧 Send Offer</button>
+        <button class="btn-secondary !px-4" onclick="closeModal()">✕ Reject</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const sections=['overview','postjob','jobs','applicants','kanban'];
+const titles={overview:'Company Overview',postjob:'Post a Job',jobs:'Job Listings',applicants:'Applicants',kanban:'Hiring Pipeline'};
+function showSection(id,el){
+  sections.forEach(s=>document.getElementById('sec-'+s)?.classList.remove('active'));
+  document.getElementById('sec-'+id)?.classList.add('active');
+  document.getElementById('pageTitle').textContent=titles[id]||id;
+  document.querySelectorAll('.sidebar-item').forEach(e=>e.classList.remove('active'));
+  if(el)el.classList.add('active');
+}
+let sbOpen=true;
+function toggleSidebar(){const sb=document.getElementById('sidebar');sbOpen=!sbOpen;sb.style.width=sbOpen?'256px':'0px';sb.style.overflow=sbOpen?'auto':'hidden';}
+function openCandidateModal(name,pos,match,skills){
+  const initials=name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  document.getElementById('candAvatar').textContent=initials;
+  document.getElementById('candName').textContent=name;
+  document.getElementById('candPos').textContent=pos;
+  document.getElementById('candMatch').textContent=match+' Match';
+  document.getElementById('candScore').textContent=match;
+  const skillsEl=document.getElementById('candSkills');
+  skillsEl.innerHTML='';
+  skills.split(', ').forEach(s=>{
+    const span=document.createElement('span');
+    span.className='badge badge-blue';
+    span.textContent=s;
+    skillsEl.appendChild(span);
+  });
+  document.getElementById('candidateModal').classList.remove('hidden');
+}
+function closeModal(){document.getElementById('candidateModal').classList.add('hidden');}
+function submitJob(){alert('✅ Job posted! AI is now matching candidates.\n\nEstimated 18-24 qualified applicants will be notified within 30 minutes.');}
+</script>
+</body>
+</html>
