@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>KarierSMK — Teacher Dashboard</title>
+<script src="./js/tailwind.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<script>tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{display:["'Poppins'","serif"],body:["'DM Sans'","sans-serif"]},colors:{brand:{50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81'},surf:{950:'#080b14',900:'#0d1117',850:'#0f1420',800:'#131926',750:'#161e2e',700:'#1a2236',600:'#1f2a40',500:'#253045'}}}}}</script>
+<link rel="stylesheet" href="./css/dashboard/teacher.css">
+</head>
+<body class="dark:bg-surf-950 bg-slate-50 overflow-hidden h-screen">
+<div class="flex h-screen overflow-hidden">
+
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside id="sidebar" class="w-64 flex flex-col flex-shrink-0 dark:bg-surf-900 bg-white border-r dark:border-slate-700 border-slate-200 overflow-y-auto" style="transition:width 0.3s">
+    <div class="flex items-center gap-3 px-5 py-5 flex-shrink-0">
+      <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center flex-shrink-0">
+        <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+      </div>
+      <span class="font-display text-lg dark:text-white text-slate-900">Karier<span class="text-emerald-500 not-italic font-bold">SMK</span></span>
+    </div>
+    <div class="px-4 mb-4">
+      <div class="flex items-center gap-3 p-3 rounded-xl dark:bg-surf-800 bg-slate-50 border dark:border-slate-700 border-slate-200">
+        <div class="avatar">SH</div>
+        <div class="min-w-0">
+          <div class="text-sm font-semibold dark:text-white text-slate-800 truncate">Sri Hartati</div>
+          <div class="text-xs dark:text-slate-400 text-slate-500">SMK Negeri 1 Jakarta</div>
+        </div>
+      </div>
+    </div>
+    <nav class="flex-1 px-3 space-y-1 pb-4">
+      <p class="text-xs font-semibold uppercase tracking-wider dark:text-slate-600 text-slate-400 px-3 py-2">Menu Pengajar</p>
+      <a class="sidebar-item active" onclick="showSection('overview',this)"><svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>Ringkasan</a>
+      <a class="sidebar-item" onclick="showSection('students',this)"><svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg><span>Pemantauan Siswa</span><span class="ml-auto text-xs bg-red-500 text-white rounded-full px-1.5 py-0.5">3</span></a>
+      <a class="sidebar-item" onclick="showSection('internship',this)"><svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>Pelacakan Magang</a>
+      <a class="sidebar-item" onclick="showSection('statistics',this)"><svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>Statistik & Laporan</a>
+      <a class="sidebar-item" onclick="showSection('alerts',this)"><svg class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg><span>Notifikasi</span><span class="ml-auto text-xs bg-amber-500 text-white rounded-full px-1.5 py-0.5">5</span></a>
+    </nav>
+    <div class="px-3 pb-4 border-t dark:border-slate-700 border-slate-200 pt-3 space-y-1">
+      <button onclick="document.documentElement.classList.toggle('dark')" class="sidebar-item w-full">
+        <svg class="w-4 h-4 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+        <svg class="w-4 h-4 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+        Ganti Tema
+      </button>
+      <a href="auth.html" class="sidebar-item"><svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>Keluar</a>
+    </div>
+  </aside>
+
+  <!-- ═══ MAIN ═══ -->
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <div class="topbar">
+      <button onclick="toggleSidebar()" class="mr-4 p-2 rounded-lg dark:text-slate-400 text-slate-500 dark:hover:bg-surf-700 hover:bg-slate-100 transition-colors"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+      <div class="flex-1"><h1 id="pageTitle" class="font-display text-xl dark:text-white text-slate-900">Dashboard Guru</h1></div>
+      <div class="flex items-center gap-3">
+        <button class="relative p-2 rounded-lg dark:text-slate-400 text-slate-500 dark:hover:bg-surf-700 hover:bg-slate-100 transition-colors"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg><span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span></button>
+        <div class="avatar">SH</div>
+      </div>
+    </div>
+
+    <div class="flex-1 overflow-y-auto dark:bg-surf-950 bg-slate-50 p-6">
+
+      <!-- ─── OVERVIEW ─── -->
+      <div id="sec-overview" class="section active">
+        <!-- Welcome bar -->
+        <div class="dark:bg-gradient-to-br dark:from-emerald-900/30 dark:to-surf-800 bg-gradient-to-br from-emerald-50 to-teal-50 border dark:border-emerald-800/30 border-emerald-100 rounded-2xl p-6 mb-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium text-emerald-600 dark:text-emerald-400 mb-1">Selamat pagi, Bu Sri! 👩‍🏫</p>
+              <h2 class="font-display text-2xl italic dark:text-white text-slate-900 mb-2">Ringkasan Kelas XI-TKJ</h2>
+              <p class="text-sm dark:text-slate-400 text-slate-600">Kamu punya <strong class="dark:text-white text-slate-800">3 siswa</strong> membutuhkan peninjauan dan <strong class="dark:text-white text-slate-800">5 pengumpulan logbook</strong> yang perlu ditinjau hari ini.</p>
+            </div>
+            <div class="hidden md:flex flex-col items-center gap-2 text-center">
+              <div class="font-display text-4xl italic text-emerald-500">32</div>
+              <div class="text-sm dark:text-slate-400 text-slate-500">Siswa Aktif</div>
+            </div>
+          </div>
+          <div class="flex gap-3 mt-4">
+            <button onclick="showSection('students',null)" class="btn-primary !bg-gradient-to-br !from-emerald-500 !to-teal-600">Lihat Siswa</button>
+            <button onclick="showSection('alerts',null)" class="btn-secondary">Cek Peringatan (5)</button>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <div class="card text-center">
+            <div class="w-12 h-12 rounded-2xl bg-brand-500/10 flex items-center justify-center mx-auto mb-3"><svg class="w-6 h-6 text-brand-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg></div>
+            <div class="font-display text-3xl italic dark:text-white text-slate-900">32</div>
+            <div class="text-sm dark:text-slate-400 text-slate-500 mt-1">Total Siswa</div>
+          </div>
+          <div class="card text-center">
+            <div class="w-12 h-12 rounded-2xl bg-green-500/10 flex items-center justify-center mx-auto mb-3"><svg class="w-6 h-6 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg></div>
+            <div class="font-display text-3xl italic dark:text-white text-slate-900">28</div>
+            <div class="text-sm dark:text-slate-400 text-slate-500 mt-1">Dalam Program Magang</div>
+          </div>
+          <div class="card text-center">
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center mx-auto mb-3"><svg class="w-6 h-6 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+            <div class="font-display text-3xl italic dark:text-white text-slate-900">3</div>
+            <div class="text-sm dark:text-slate-400 text-slate-500 mt-1">Perlu peninjauan</div>
+          </div>
+          <div class="card text-center">
+            <div class="w-12 h-12 rounded-2xl bg-purple-500/10 flex items-center justify-center mx-auto mb-3"><svg class="w-6 h-6 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg></div>
+            <div class="font-display text-3xl italic dark:text-white text-slate-900">4.3</div>
+            <div class="text-sm dark:text-slate-400 text-slate-500 mt-1">Peringkat Mentor Rata-rata</div>
+          </div>
+        </div>
+
+        <!-- Alerts + Top Students -->
+        <div class="grid lg:grid-cols-2 gap-5">
+          <div class="card">
+            <h3 class="font-semibold dark:text-white text-slate-800 mb-4 flex items-center gap-2"><span class="text-red-500">⚠️</span> Priority Alerts</h3>
+            <div class="space-y-3">
+              <div class="alert-card alert-red">
+                <span class="text-lg">🔴</span>
+                <div class="flex-1"><div class="text-sm font-medium dark:text-white text-slate-800">Rizky Pratama — 0 catatan logbook</div><div class="text-xs dark:text-slate-400 text-slate-500 mt-0.5">Magang dimulai 2 minggu yang lalu. Tidak ada aktivitas yang tercatat. Segera hubungi mahasiswa.</div></div>
+                <button class="btn-secondary !py-1.5 !text-xs flex-shrink-0" onclick="openStudentModal('Rizky','Tokopedia','0%')">Kontak</button>
+              </div>
+              <div class="alert-card alert-amber">
+                <span class="text-lg">🟡</span>
+                <div class="flex-1"><div class="text-sm font-medium dark:text-white text-slate-800">Dewi Anggraeni — Skor di bawah rata-rata</div><div class="text-xs dark:text-slate-400 text-slate-500 mt-0.5">Penilaian mentor: 2,8/5. 3 kali keterlambatan pengumpulan tugas. Membutuhkan dukungan akademis.</div></div>
+                <button class="btn-secondary !py-1.5 !text-xs flex-shrink-0" onclick="openStudentModal('Dewi','Gojek','45%')">Lihat</button>
+              </div>
+              <div class="alert-card alert-amber">
+                <span class="text-lg">🟡</span>
+                <div class="flex-1"><div class="text-sm font-medium dark:text-white text-slate-800">Andi Kusuma — Konflik magang</div><div class="text-xs dark:text-slate-400 text-slate-500 mt-0.5">Perusahaan melaporkan adanya bentrok jadwal. Diperlukan mediasi.</div></div>
+                <button class="btn-secondary !py-1.5 !text-xs flex-shrink-0">Mediasi</button>
+              </div>
+            </div>
+          </div>
+          <!-- siswa terbaik -->
+          <div class="card">
+            <h3 class="font-semibold dark:text-white text-slate-800 mb-4 flex items-center gap-2"><span>🏆</span> Siswa Terbaik</h3>
+            <div class="space-y-3">
+              <div class="flex items-center gap-3 p-3 rounded-xl dark:bg-surf-800 bg-slate-50"><div class="w-8 h-8 rounded-full bg-amber-500 flex items-center justify-center text-white text-xs font-bold">#1</div><div class="flex-1"><div class="text-sm font-medium dark:text-white text-slate-800">Budi Santoso</div><div class="text-xs dark:text-slate-400 text-slate-500">Tokopedia • AI: 87%</div></div><div class="progress-bar w-24"><div class="progress-fill" style="width:87%"></div></div><span class="text-xs dark:text-slate-400 text-slate-500 w-8 text-right">87%</span></div>
+              <div class="flex items-center gap-3 p-3 rounded-xl dark:bg-surf-800 bg-slate-50"><div class="w-8 h-8 rounded-full bg-slate-400 flex items-center justify-center text-white text-xs font-bold">#2</div><div class="flex-1"><div class="text-sm font-medium dark:text-white text-slate-800">Anisa Rahayu</div><div class="text-xs dark:text-slate-400 text-slate-500">Gojek • AI: 82%</div></div><div class="progress-bar w-24"><div class="progress-fill" style="width:82%"></div></div><span class="text-xs dark:text-slate-400 text-slate-500 w-8 text-right">82%</span></div>
+              <div class="flex items-center gap-3 p-3 rounded-xl dark:bg-surf-800 bg-slate-50"><div class="w-8 h-8 rounded-full bg-orange-600 flex items-center justify-center text-white text-xs font-bold">#3</div><div class="flex-1"><div class="text-sm font-medium dark:text-white text-slate-800">Sinta Dewi</div><div class="text-xs dark:text-slate-400 text-slate-500">Shopee • AI: 79%</div></div><div class="progress-bar w-24"><div class="progress-fill" style="width:79%"></div></div><span class="text-xs dark:text-slate-400 text-slate-500 w-8 text-right">79%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── PEMANTAUAN SISWA ─── -->
+      <div id="sec-students" class="section">
+        <div class="flex flex-wrap items-center gap-3 mb-5">
+          <input type="text" class="input-base flex-1 !py-2" placeholder="Search students..."/>
+          <select class="input-base !py-2 !w-auto"><option>Semua Status</option><option>Aktif</option><option>Berisiko</option><option>Non-aktif</option></select>
+          <button class="btn-primary !py-2">Filter</button>
+          <button class="btn-secondary !py-2" onclick="openStudentModal('New','—','—')">+ Tambah Siswa</button>
+        </div>
+        <div class="card">
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead><tr class="dark:text-slate-500 text-slate-400 text-xs uppercase tracking-wider"><th class="text-left pb-3 pr-4">Siswa</th><th class="text-left pb-3 pr-4">Perusahaan</th><th class="text-left pb-3 pr-4">Progress</th><th class="text-left pb-3 pr-4">Logbook</th><th class="text-left pb-3 pr-4">Skor Pembimbing</th><th class="text-left pb-3 pr-4">Kecocokan AI</th><th class="text-left pb-3">Status</th><th class="text-left pb-3">Aksi</th></tr></thead>
+              <tbody>
+                <tr class="dark:border-slate-700 border-slate-100 border-b"><td class="py-3 pr-4"><div class="flex items-center gap-2"><div class="w-7 h-7 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-500 text-xs font-bold">BS</div><span class="font-medium dark:text-white text-slate-800">Budi Santoso</span></div></td><td class="py-3 pr-4 dark:text-slate-400 text-slate-600">Tokopedia</td><td class="py-3 pr-4"><div class="flex items-center gap-2"><div class="progress-bar w-20"><div class="progress-fill" style="width:72%"></div></div><span class="dark:text-slate-400 text-slate-500 text-xs">72%</span></div></td><td class="py-3 pr-4 dark:text-slate-400 text-slate-500">2/10</td><td class="py-3 pr-4"><div class="flex gap-0.5 text-sm"><span class="text-amber-400">★★★★</span><span class="dark:text-slate-600 text-slate-300">★</span></div></td><td class="py-3 pr-4"><span class="badge badge-green">87%</span></td><td class="py-3"><span class="badge badge-green">Aktif</span></td><td class="py-3"><button class="text-brand-500 hover:underline text-xs" onclick="openStudentModal('Budi Santoso','Tokopedia','87%')">Lihat</button></td></tr>
+                <tr class="dark:border-slate-700 border-slate-100 border-b"><td class="py-3 pr-4"><div class="flex items-center gap-2"><div class="w-7 h-7 rounded-lg bg-green-500/10 flex items-center justify-center text-green-500 text-xs font-bold">AR</div><span class="font-medium dark:text-white text-slate-800">Anisa Rahayu</span></div></td><td class="py-3 pr-4 dark:text-slate-400 text-slate-600">Gojek</td><td class="py-3 pr-4"><div class="flex items-center gap-2"><div class="progress-bar w-20"><div class="progress-fill progress-green" style="width:85%"></div></div><span class="dark:text-slate-400 text-slate-500 text-xs">85%</span></div></td><td class="py-3 pr-4 dark:text-slate-400 text-slate-500">7/10</td><td class="py-3 pr-4"><div class="flex gap-0.5 text-sm"><span class="text-amber-400">★★★★★</span></div></td><td class="py-3 pr-4"><span class="badge badge-green">82%</span></td><td class="py-3"><span class="badge badge-green">Aktif</span></td><td class="py-3"><button class="text-brand-500 hover:underline text-xs" onclick="openStudentModal('Anisa Rahayu','Gojek','82%')">Lihat</button></td></tr>
+                <tr class="dark:border-slate-700 border-slate-100 border-b"><td class="py-3 pr-4"><div class="flex items-center gap-2"><div class="w-7 h-7 rounded-lg bg-red-500/10 flex items-center justify-center text-red-500 text-xs font-bold">RP</div><span class="font-medium dark:text-white text-slate-800">Rizky Pratama</span></div></td><td class="py-3 pr-4 dark:text-slate-400 text-slate-600">Tokopedia</td><td class="py-3 pr-4"><div class="flex items-center gap-2"><div class="progress-bar w-20"><div class="progress-fill" style="width:0%;background:linear-gradient(90deg,#ef4444,#f87171)"></div></div><span class="dark:text-slate-400 text-slate-500 text-xs">0%</span></div></td><td class="py-3 pr-4 dark:text-slate-400 text-slate-500">0/10</td><td class="py-3 pr-4"><span class="text-sm dark:text-slate-500 text-slate-400">Tidak ada data</span></td><td class="py-3 pr-4"><span class="badge badge-blue">68%</span></td><td class="py-3"><span class="badge badge-red">Non-aktif</span></td><td class="py-3"><button class="text-red-500 hover:underline text-xs font-medium" onclick="openStudentModal('Rizky Pratama','Tokopedia','68%')">Peringatkan!</button></td></tr>
+                <tr class="dark:border-slate-700 border-slate-100 border-b"><td class="py-3 pr-4"><div class="flex items-center gap-2"><div class="w-7 h-7 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-500 text-xs font-bold">DA</div><span class="font-medium dark:text-white text-slate-800">Dewi Anggraeni</span></div></td><td class="py-3 pr-4 dark:text-slate-400 text-slate-600">Shopee</td><td class="py-3 pr-4"><div class="flex items-center gap-2"><div class="progress-bar w-20"><div class="progress-fill" style="width:45%;background:linear-gradient(90deg,#f59e0b,#fcd34d)"></div></div><span class="dark:text-slate-400 text-slate-500 text-xs">45%</span></div></td><td class="py-3 pr-4 dark:text-slate-400 text-slate-500">3/10</td><td class="py-3 pr-4"><div class="flex gap-0.5 text-sm"><span class="text-amber-400">★★</span><span class="dark:text-slate-600 text-slate-300">★★★</span></div></td><td class="py-3 pr-4"><span class="badge badge-amber">65%</span></td><td class="py-3"><span class="badge badge-amber">Berisiko</span></td><td class="py-3"><button class="text-amber-500 hover:underline text-xs" onclick="openStudentModal('Dewi Anggraeni','Shopee','65%')">Bantu</button></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── TRACK MAGANG ─── -->
+      <div id="sec-internship" class="section">
+        <div class="grid lg:grid-cols-3 gap-5">
+          <div class="lg:col-span-2 card">
+            <h3 class="font-semibold dark:text-white text-slate-800 text-lg mb-4">Program Magang Aktif</h3>
+            <div class="space-y-4">
+              <div class="p-4 rounded-xl dark:bg-surf-800 bg-slate-50 border dark:border-slate-700 border-slate-200">
+                <div class="flex items-center justify-between mb-3">
+                  <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl dark:bg-surf-700 bg-white border dark:border-slate-700 border-slate-200 flex items-center justify-center font-bold text-lg shadow-sm">T</div><div><div class="font-medium dark:text-white text-slate-800">Tokopedia • UI/UX Dept</div><div class="text-xs dark:text-slate-400 text-slate-500">Jan 15 – Mar 15, 2025</div></div></div>
+                  <span class="badge badge-green">Aktif</span>
+                </div>
+                <div class="grid grid-cols-3 gap-3 text-center text-sm"><div class="dark:bg-surf-700 bg-white rounded-lg p-2 border dark:border-slate-700 border-slate-200"><div class="font-bold dark:text-white text-slate-800">2</div><div class="text-xs dark:text-slate-400 text-slate-500">Siswa</div></div><div class="dark:bg-surf-700 bg-white rounded-lg p-2 border dark:border-slate-700 border-slate-200"><div class="font-bold text-green-500">1</div><div class="text-xs dark:text-slate-400 text-slate-500">Sesuai Rencana</div></div><div class="dark:bg-surf-700 bg-white rounded-lg p-2 border dark:border-slate-700 border-slate-200"><div class="font-bold text-red-500">1</div><div class="text-xs dark:text-slate-400 text-slate-500">Berisiko</div></div></div>
+                <div class="mt-3"><div class="flex justify-between text-xs mb-1"><span class="dark:text-slate-400 text-slate-500">Durasi</span><span class="dark:text-slate-400 text-slate-500">Minggu 2/8</span></div><div class="progress-bar"><div class="progress-fill" style="width:25%"></div></div></div>
+              </div>
+              <div class="p-4 rounded-xl dark:bg-surf-800 bg-slate-50 border dark:border-slate-700 border-slate-200">
+                <div class="flex items-center justify-between mb-3">
+                  <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl dark:bg-surf-700 bg-white border dark:border-slate-700 border-slate-200 flex items-center justify-center font-bold text-lg shadow-sm">G</div><div><div class="font-medium dark:text-white text-slate-800">Gojek • Engineering</div><div class="text-xs dark:text-slate-400 text-slate-500">Nov 1 – Mar 1, 2025</div></div></div>
+                  <span class="badge badge-blue">Sedang berlangsung</span>
+                </div>
+                <div class="grid grid-cols-3 gap-3 text-center text-sm"><div class="dark:bg-surf-700 bg-white rounded-lg p-2 border dark:border-slate-700 border-slate-200"><div class="font-bold dark:text-white text-slate-800">3</div><div class="text-xs dark:text-slate-400 text-slate-500">Siswa</div></div><div class="dark:bg-surf-700 bg-white rounded-lg p-2 border dark:border-slate-700 border-slate-200"><div class="font-bold text-green-500">3</div><div class="text-xs dark:text-slate-400 text-slate-500">Sesuai Rencana</div></div><div class="dark:bg-surf-700 bg-white rounded-lg p-2 border dark:border-slate-700 border-slate-200"><div class="font-bold dark:text-slate-400 text-slate-500">0</div><div class="text-xs dark:text-slate-400 text-slate-500">Berisiko</div></div></div>
+                <div class="mt-3"><div class="flex justify-between text-xs mb-1"><span class="dark:text-slate-400 text-slate-500">Durasi</span><span class="dark:text-slate-400 text-slate-500">Bulan 3/4</span></div><div class="progress-bar"><div class="progress-fill" style="width:75%"></div></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="space-y-4">
+            <div class="card">
+              <h3 class="font-semibold dark:text-white text-slate-800 mb-3">Review Logbook</h3>
+              <div class="text-center mb-4"><div class="font-display text-3xl italic dark:text-white text-slate-900">5</div><div class="text-sm dark:text-slate-400 text-slate-500">Menunggu review</div></div>
+              <div class="space-y-2">
+                <div class="p-3 rounded-xl dark:bg-surf-800 bg-slate-50 border dark:border-slate-700 border-slate-200 cursor-pointer hover:border-brand-500 transition-colors"><div class="text-sm font-medium dark:text-white text-slate-800">Budi Santoso</div><div class="text-xs dark:text-slate-400 text-slate-500">Jan 16 • Hari 2</div></div>
+                <div class="p-3 rounded-xl dark:bg-surf-800 bg-slate-50 border dark:border-slate-700 border-slate-200 cursor-pointer hover:border-brand-500 transition-colors"><div class="text-sm font-medium dark:text-white text-slate-800">Anisa Rahayu</div><div class="text-xs dark:text-slate-400 text-slate-500">Jan 16 • Hari 8</div></div>
+                <div class="p-3 rounded-xl dark:bg-surf-800 bg-slate-50 border dark:border-slate-700 border-slate-200 cursor-pointer hover:border-brand-500 transition-colors"><div class="text-sm font-medium dark:text-white text-slate-800">Sinta Dewi</div><div class="text-xs dark:text-slate-400 text-slate-500">Jan 15 • Hari 14</div></div>
+              </div>
+              <button class="btn-primary w-full mt-3 !py-2 !text-sm">Review Semua</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── STATISTIK ─── -->
+      <div id="sec-statistics" class="section">
+        <div class="grid lg:grid-cols-2 gap-5">
+          <div class="card">
+            <h3 class="font-semibold dark:text-white text-slate-800 text-lg mb-5">Sttatistik Penempatan</h3>
+            <div class="space-y-4">
+              <div><div class="flex justify-between text-sm mb-2"><span class="dark:text-slate-300 text-slate-600">Siswa yang Ditempatkan</span><span class="font-semibold dark:text-white text-slate-800">28/32 (87.5%)</span></div><div class="progress-bar"><div class="progress-fill progress-green" style="width:87.5%"></div></div></div>
+              <div><div class="flex justify-between text-sm mb-2"><span class="dark:text-slate-300 text-slate-600">Magang yang Telah Selesai</span><span class="font-semibold dark:text-white text-slate-800">18/28</span></div><div class="progress-bar"><div class="progress-fill" style="width:64%"></div></div></div>
+              <div><div class="flex justify-between text-sm mb-2"><span class="dark:text-slate-300 text-slate-600">Dipekerjakan Setelah Magang</span><span class="font-semibold dark:text-white text-slate-800">8/18 (44%)</span></div><div class="progress-bar"><div class="progress-fill" style="width:44%;background:linear-gradient(90deg,#f59e0b,#fcd34d)"></div></div></div>
+              <div><div class="flex justify-between text-sm mb-2"><span class="dark:text-slate-300 text-slate-600">Skor Rata-rata Kecocokan AI</span><span class="font-semibold dark:text-white text-slate-800">76%</span></div><div class="progress-bar"><div class="progress-fill" style="width:76%"></div></div></div>
+            </div>
+          </div>
+          <div class="card">
+            <h3 class="font-semibold dark:text-white text-slate-800 text-lg mb-5">Distribusi Perusahaan</h3>
+            <div class="space-y-3">
+              <div class="flex items-center gap-3 p-3 rounded-xl dark:bg-surf-800 bg-slate-50"><div class="w-8 h-8 rounded-lg dark:bg-surf-700 bg-white border dark:border-slate-700 border-slate-200 flex items-center justify-center font-bold text-sm">T</div><div class="flex-1"><div class="text-sm font-medium dark:text-white text-slate-800">Tokopedia</div><div class="progress-bar mt-1"><div class="progress-fill" style="width:35%"></div></div></div><span class="text-sm dark:text-slate-400 text-slate-500">10 siswa</span></div>
+              <div class="flex items-center gap-3 p-3 rounded-xl dark:bg-surf-800 bg-slate-50"><div class="w-8 h-8 rounded-lg dark:bg-surf-700 bg-white border dark:border-slate-700 border-slate-200 flex items-center justify-center font-bold text-sm text-green-500">G</div><div class="flex-1"><div class="text-sm font-medium dark:text-white text-slate-800">Gojek</div><div class="progress-bar mt-1"><div class="progress-fill" style="width:28%"></div></div></div><span class="text-sm dark:text-slate-400 text-slate-500">8 siswa</span></div>
+              <div class="flex items-center gap-3 p-3 rounded-xl dark:bg-surf-800 bg-slate-50"><div class="w-8 h-8 rounded-lg dark:bg-surf-700 bg-white border dark:border-slate-700 border-slate-200 flex items-center justify-center font-bold text-sm text-orange-500">S</div><div class="flex-1"><div class="text-sm font-medium dark:text-white text-slate-800">Shopee</div><div class="progress-bar mt-1"><div class="progress-fill" style="width:21%"></div></div></div><span class="text-sm dark:text-slate-400 text-slate-500">6 siswa</span></div>
+              <div class="flex items-center gap-3 p-3 rounded-xl dark:bg-surf-800 bg-slate-50"><div class="w-8 h-8 rounded-lg dark:bg-surf-700 bg-white border dark:border-slate-700 border-slate-200 flex items-center justify-center font-bold text-sm text-red-500">B</div><div class="flex-1"><div class="text-sm font-medium dark:text-white text-slate-800">Bukalapak</div><div class="progress-bar mt-1"><div class="progress-fill" style="width:14%"></div></div></div><span class="text-sm dark:text-slate-400 text-slate-500">4 siswa</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── ALERTS ─── -->
+      <div id="sec-alerts" class="section">
+        <div class="space-y-4">
+          <h3 class="font-semibold dark:text-white text-slate-800 text-lg">Peringatan Aktif (5)</h3>
+          <div class="alert-card alert-red"><div class="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center text-2xl flex-shrink-0">🚨</div><div class="flex-1"><div class="text-sm font-semibold dark:text-white text-slate-800">KRITIS: Rizky Pratama — Nol Aktivitas</div><div class="text-sm dark:text-slate-400 text-slate-500 mt-1">Mahasiswa telah menjalani magang selama 14 hari dengan 0 catatan dalam buku log. Pembimbing Pak Ahmad telah melaporkan ketidakhadiran selama 3 hari.</div><div class="text-xs dark:text-slate-500 text-slate-400 mt-1">Diterbitkan: Jan 16, 2025</div></div><div class="flex flex-col gap-2 flex-shrink-0"><button class="btn-primary !py-1.5 !text-xs" onclick="openStudentModal('Rizky','Tokopedia','68%')">Hubungi Sekarang</button><button class="btn-secondary !py-1.5 !text-xs">Tolak</button></div></div>
+          <div class="alert-card alert-amber"><div class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-2xl flex-shrink-0">⚠️</div><div class="flex-1"><div class="text-sm font-semibold dark:text-white text-slate-800">PERINGATAN: Dewi Anggraeni — Nilai Mentor Rendah</div><div class="text-sm dark:text-slate-400 text-slate-500 mt-1">Peringkat mentor turun menjadi 2,8/5 minggu ini. Pembimbing melaporkan kesulitan komunikasi dengan siswa.</div><div class="text-xs dark:text-slate-500 text-slate-400 mt-1">Diterbitkan: Jan 15, 2025</div></div><div class="flex flex-col gap-2 flex-shrink-0"><button class="btn-secondary !py-1.5 !text-xs" onclick="openStudentModal('Dewi','Shopee','65%')">Lihat Profil</button><button class="btn-secondary !py-1.5 !text-xs">Tolak</button></div></div>
+          <div class="alert-card alert-amber"><div class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center text-2xl flex-shrink-0">📋</div><div class="flex-1"><div class="text-sm font-semibold dark:text-white text-slate-800">INFO: 5 entri logbook menunggu peninjauan</div><div class="text-sm dark:text-slate-400 text-slate-500 mt-1">Para siswa sedang menunggu tanggapan. Mohon tinjau dan berikan tanggapan dalam waktu 24 jam.</div><div class="text-xs dark:text-slate-500 text-slate-400 mt-1">Diterbitkan: Jan 16, 2025</div></div><div class="flex flex-col gap-2 flex-shrink-0"><button class="btn-primary !py-1.5 !text-xs">Review Sekarang</button><button class="btn-secondary !py-1.5 !text-xs">Tolak</button></div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal Siswa -->
+<div id="studentModal" class="modal-overlay hidden" onclick="closeModal()">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="p-6">
+      <div class="flex items-center justify-between mb-5"><h3 class="font-display text-xl italic dark:text-white text-slate-900">Detail Siswa</h3><button onclick="closeModal()" class="p-2 rounded-lg dark:hover:bg-surf-700 hover:bg-slate-100 dark:text-slate-400 text-slate-500"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg></button></div>
+      <div class="flex items-center gap-4 mb-5 p-4 rounded-xl dark:bg-surf-800 bg-slate-50 border dark:border-slate-700 border-slate-200">
+        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-white text-xl font-bold"><span id="modalInitials">BS</span></div>
+        <div><div id="modalName" class="font-semibold dark:text-white text-slate-800 text-lg">Budi Santoso</div><div id="modalCompanyLabel" class="text-sm dark:text-slate-400 text-slate-500">Magang @ Tokopedia</div><div class="flex gap-2 mt-1"><span id="modalMatch" class="badge badge-green">AI: 87%</span><span class="badge badge-blue">XI-TKJ</span></div></div>
+      </div>
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div><label class="block text-sm dark:text-slate-400 text-slate-500 mb-1.5">Kirim Pesan</label><input type="text" class="input-base" placeholder="Ketik pesan Anda..."/></div>
+        <div><label class="block text-sm dark:text-slate-400 text-slate-500 mb-1.5">Jadwalkan Pertemuan</label><input type="datetime-local" class="input-base"/></div>
+      </div>
+      <div class="mb-4"><label class="block text-sm dark:text-slate-400 text-slate-500 mb-1.5">Catatan untuk siswa</label><textarea class="input-base !min-h-[80px]" placeholder="Tambahkan panduan atau catatan..."></textarea></div>
+      <div class="flex gap-3"><button class="btn-primary flex-1" onclick="closeModal()">Kirim & Simpan</button><button class="btn-secondary flex-1" onclick="closeModal()">Batal</button></div>
+    </div>
+  </div>
+</div>
+
+<script src="./js/dashboard/teacher.js"></script>
+</body>
+</html>
