@@ -3,48 +3,12 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>SkillBridge AI — Sign In</title>
-<script src="https://cdn.tailwindcss.com"></script>
+<title>KarierSMK AI — Masuk</title>
+<script src="./js/tailwind.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 <script>tailwind.config={darkMode:'class',theme:{extend:{fontFamily:{display:["'Poppins'","serif"],body:["'DM Sans'","sans-serif"]},colors:{brand:{50:'#eef2ff',100:'#e0e7ff',200:'#c7d2fe',300:'#a5b4fc',400:'#818cf8',500:'#6366f1',600:'#4f46e5',700:'#4338ca',800:'#3730a3',900:'#312e81'},surf:{950:'#080b14',900:'#0d1117',850:'#0f1420',800:'#131926',750:'#161e2e',700:'#1a2236',600:'#1f2a40',500:'#253045'}}}}}</script>
-<style>
-*{font-family:'DM Sans',sans-serif;box-sizing:border-box;}
-.font-display{font-family:'Poppins',serif;}
-.input-base{width:100%;padding:11px 14px;border-radius:10px;font-size:14px;transition:all 0.2s;outline:none;font-family:'DM Sans',sans-serif;}
-.dark .input-base{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#f1f5f9;}
-.dark .input-base::placeholder{color:rgba(148,163,184,0.5);}
-.dark .input-base:focus{border-color:#6366f1;background:rgba(99,102,241,0.08);box-shadow:0 0 0 3px rgba(99,102,241,0.14);}
-.light .input-base,.input-base:not(.dark *){background:#f8fafc;border:1px solid #e2e8f0;color:#0f172a;}
-.input-base::placeholder{color:#94a3b8;}
-.input-base:focus{border-color:#6366f1;background:#fff;box-shadow:0 0 0 3px rgba(99,102,241,0.1);}
-.btn-primary{background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-weight:600;font-size:14px;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 14px rgba(99,102,241,0.32);width:100%;font-family:'DM Sans',sans-serif;}
-.btn-primary:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(99,102,241,0.44);}
-.btn-social{display:flex;align-items:center;justify-content:center;gap:8px;border-radius:10px;padding:10px;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif;}
-.dark .btn-social{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);color:#e2e8f0;}
-.btn-social{background:#fff;border:1px solid #e2e8f0;color:#334155;}
-.btn-social:hover{border-color:#6366f1;}
-.tab-pill{display:flex;gap:4px;padding:4px;border-radius:12px;margin-bottom:32px;}
-.dark .tab-pill{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.07);}
-.tab-pill{background:#f1f5f9;border:1px solid #e2e8f0;}
-.tab-btn{flex:1;padding:8px 16px;border-radius:9px;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s;border:none;background:transparent;font-family:'DM Sans',sans-serif;}
-.dark .tab-btn.inactive-tab{color:#64748b;}
-.tab-btn.inactive-tab{color:#64748b;}
-.tab-btn.active-tab{background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;box-shadow:0 2px 8px rgba(99,102,241,0.28);}
-.role-card{border-radius:12px;padding:14px 10px;cursor:pointer;transition:all 0.2s;flex:1;text-align:center;border:2px solid transparent;}
-.dark .role-card{background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.09);}
-.role-card{background:#f8fafc;border-color:#e2e8f0;}
-.role-card.role-selected{border-color:#6366f1 !important;background:rgba(99,102,241,0.08) !important;}
-.role-card:hover{border-color:rgba(99,102,241,0.5);}
-.fade-in{animation:fadeIn 0.35s cubic-bezier(0.16,1,0.3,1);}
-@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
-.float{animation:floatAnim 4s ease-in-out infinite;}
-@keyframes floatAnim{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
-.glow{animation:glowPulse 2.5s ease-in-out infinite;}
-@keyframes glowPulse{0%,100%{box-shadow:0 0 8px rgba(99,102,241,0.5);}50%{box-shadow:0 0 20px rgba(99,102,241,0.9);}}
-::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-thumb{background:rgba(99,102,241,0.3);border-radius:2px;}
-.mesh-bg{background:radial-gradient(ellipse at 20% 20%,rgba(99,102,241,0.18) 0%,transparent 55%),radial-gradient(ellipse at 85% 75%,rgba(139,92,246,0.13) 0%,transparent 55%),radial-gradient(ellipse at 60% 45%,rgba(59,130,246,0.07) 0%,transparent 50%);}
-</style>
+<link rel="stylesheet" href="./css/auth.css">
 </head>
 <body class="white:bg-surf-950 bg-slate-50 min-h-screen">
 <div class="flex min-h-screen">
@@ -59,45 +23,45 @@
         <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center glow">
           <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
         </div>
-        <span class="font-display text-xl dark:text-white text-slate-900 italic">SkillBridge<span class="text-brand-500 not-italic font-bold"> AI</span></span>
+        <span class="font-display text-xl dark:text-white text-slate-900 italic">KarierSMK<span class="text-brand-500 not-italic font-bold"> AI</span></span>
       </a>
 
       <div class="flex-1 flex flex-col justify-center">
         <!-- Badge -->
         <div class="float inline-flex items-center gap-2.5 bg-brand-500/10 border border-brand-500/25 rounded-full px-4 py-2 w-fit mb-8">
           <div class="w-2 h-2 bg-brand-400 rounded-full" style="box-shadow:0 0 8px rgba(129,140,248,0.9);animation:glowPulse 2.5s ease-in-out infinite;"></div>
-          <span class="text-brand-400 text-sm font-medium">Career Matching</span>
+          <span class="text-brand-400 text-sm font-medium">Pencocokan Karier</span>
         </div>
 
         <h1 class="font-display text-5xl xl:text-[3.5rem] leading-[1.1] italic mb-6 dark:text-white text-slate-900">
-          Bridge Your Skills<br/>to Real<span class="text-brand-600">Opportunities</span>
+          Jembatani Keahlianmu<br/>ke <span class="text-brand-600">Peluang Nyata</span>
         </h1>
-        <p class="text-base dark:text-slate-400 text-slate-500 leading-relaxed mb-12 max-w-md">Connect SMK students & alumni with internships and jobs through intelligent AI matching, career analysis, and real-time recommendations.</p>
+        <p class="text-base dark:text-slate-400 text-slate-500 leading-relaxed mb-12 max-w-md">Hubungkan siswa & alumni SMK dengan magang dan pekerjaan melalui pencocokan AI yang cerdas, analisis karier, dan rekomendasi secara langsung.</p>
 
         <!-- Stats grid -->
         <div class="grid grid-cols-3 gap-3 mb-10">
           <div class="dark:bg-white/[0.04] bg-white border dark:border-slate-700 border-slate-100 rounded-2xl p-4 shadow-sm">
             <div class="font-display text-3xl italic dark:text-white text-slate-900 mb-1">12K+</div>
-            <div class="text-xs dark:text-slate-400 text-slate-500">Students placed</div>
+            <div class="text-xs dark:text-slate-400 text-slate-500">Siswa ditempatkan</div>
           </div>
           <div class="dark:bg-white/[0.04] bg-white border dark:border-slate-700 border-slate-100 rounded-2xl p-4 shadow-sm">
             <div class="font-display text-3xl italic dark:text-white text-slate-900 mb-1">94%</div>
-            <div class="text-xs dark:text-slate-400 text-slate-500">Match accuracy</div>
+            <div class="text-xs dark:text-slate-400 text-slate-500">Akurasi pencocokan</div>
           </div>
           <div class="dark:bg-white/[0.04] bg-white border dark:border-slate-700 border-slate-100 rounded-2xl p-4 shadow-sm">
             <div class="font-display text-3xl italic dark:text-white text-slate-900 mb-1">850+</div>
-            <div class="text-xs dark:text-slate-400 text-slate-500">Partner companies</div>
+            <div class="text-xs dark:text-slate-400 text-slate-500">Perusahaan mitra</div>
           </div>
         </div>
 
         <!-- Testimonial -->
         <div class="dark:bg-white/[0.04] bg-white border dark:border-slate-700 border-slate-100 rounded-2xl p-5 shadow-sm">
-          <p class="dark:text-slate-300 text-slate-600 text-sm italic leading-relaxed mb-4">"SkillBridge AI matched me with my dream internship. The AI analysis was shockingly accurate — it knew what I needed before I did."</p>
+          <p class="dark:text-slate-300 text-slate-600 text-sm italic leading-relaxed mb-4">"KarierSMK AI mencocokkan saya dengan magang impian saya. Analisis AI-nya akurat sekali — ia tahu apa yang saya butuhkan bahkan sebelum saya menyadarinya."</p>
           <div class="flex items-center gap-3">
             <div class="w-9 h-9 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-white text-xs font-semibold flex-shrink-0">AS</div>
             <div>
               <div class="text-sm font-semibold dark:text-white text-slate-800">Anisa Susanti</div>
-              <div class="text-xs dark:text-slate-500 text-slate-400">SMK Negeri 1 Jakarta • UI/UX Intern @ Tokopedia</div>
+              <div class="text-xs dark:text-slate-500 text-slate-400">SMK Negeri 1 Jakarta • Magang UI/UX @ Tokopedia</div>
             </div>
             <div class="ml-auto flex gap-0.5 flex-shrink-0">
               <svg class="w-4 h-4 fill-amber-400" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
@@ -126,21 +90,21 @@
         <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center">
           <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
         </div>
-        <span class="font-display text-2xl dark:text-white text-slate-900 italic">SkillBridge<span class="text-brand-500 not-italic font-bold"> AI</span></span>
+        <span class="font-display text-2xl dark:text-white text-slate-900 italic">KarierSMK<span class="text-brand-500 not-italic font-bold"> AI</span></span>
       </div>
     </div>
 
     <div class="w-full max-w-[420px]">
       <!-- Tabs -->
       <div class="tab-pill">
-        <button id="loginTab" class="tab-btn active-tab" onclick="switchTab('login')">Sign In</button>
-        <button id="registerTab" class="tab-btn inactive-tab" onclick="switchTab('register')">Create Account</button>
+        <button id="loginTab" class="tab-btn active-tab" onclick="switchTab('login')">Masuk</button>
+        <button id="registerTab" class="tab-btn inactive-tab" onclick="switchTab('register')">Buat Akun</button>
       </div>
 
       <!-- ─── LOGIN ─── -->
       <div id="loginForm" class="fade-in">
-        <h2 class="font-display text-3xl italic dark:text-white text-slate-900 mb-1">Welcome back</h2>
-        <p class="text-sm dark:text-slate-400 text-slate-500 mb-7">Sign in to your SkillBridge account</p>
+        <h2 class="font-display text-3xl italic dark:text-white text-slate-900 mb-1">Selamat datang kembali</h2>
+        <p class="text-sm dark:text-slate-400 text-slate-500 mb-7">Masuk ke akun KarierSMK kamu</p>
 
         <div class="space-y-4 mb-5">
           <div>
@@ -149,41 +113,41 @@
           </div>
           <div>
             <div class="flex items-center justify-between mb-2">
-              <label class="block text-sm font-medium dark:text-slate-300 text-slate-700">Password</label>
-              <a href="#" class="text-xs text-brand-400 hover:text-brand-300">Forgot password?</a>
+              <label class="block text-sm font-medium dark:text-slate-300 text-slate-700">Kata Sandi</label>
+              <a href="#" class="text-xs text-brand-400 hover:text-brand-300">Lupa kata sandi?</a>
             </div>
             <input type="password" class="input-base" placeholder="••••••••"/>
           </div>
           <div class="flex items-center gap-2">
             <input type="checkbox" id="remember" class="w-4 h-4 accent-brand-500 rounded"/>
-            <label for="remember" class="text-sm dark:text-slate-400 text-slate-500">Remember me for 30 days</label>
+            <label for="remember" class="text-sm dark:text-slate-400 text-slate-500">Ingat saya selama 30 hari</label>
           </div>
         </div>
 
         <!-- Quick demo access -->
         <div class="dark:bg-surf-800 bg-blue-50/60 border dark:border-slate-700 border-blue-100 rounded-xl p-4 mb-5">
-          <p class="text-xs font-semibold dark:text-slate-400 text-slate-500 uppercase tracking-wider mb-3">⚡ Quick Demo Login</p>
+          <p class="text-xs font-semibold dark:text-slate-400 text-slate-500 uppercase tracking-wider mb-3">⚡ Masuk Demo Cepat</p>
           <div class="grid grid-cols-3 gap-2">
             <a href="student-dashboard.html" class="group flex flex-col items-center p-3 rounded-xl dark:bg-surf-700 bg-white border dark:border-slate-700 border-slate-200 hover:border-brand-400 dark:hover:border-brand-400 transition-all shadow-sm cursor-pointer no-underline">
               <span class="text-xl mb-1">🎓</span>
-              <span class="text-xs font-medium dark:text-slate-300 text-slate-600 group-hover:text-brand-500 transition-colors">Student</span>
+              <span class="text-xs font-medium dark:text-slate-300 text-slate-600 group-hover:text-brand-500 transition-colors">Siswa</span>
             </a>
             <a href="teacher-dashboard.html" class="group flex flex-col items-center p-3 rounded-xl dark:bg-surf-700 bg-white border dark:border-slate-700 border-slate-200 hover:border-brand-400 dark:hover:border-brand-400 transition-all shadow-sm cursor-pointer no-underline">
               <span class="text-xl mb-1">👨‍🏫</span>
-              <span class="text-xs font-medium dark:text-slate-300 text-slate-600 group-hover:text-brand-500 transition-colors">Teacher</span>
+              <span class="text-xs font-medium dark:text-slate-300 text-slate-600 group-hover:text-brand-500 transition-colors">Guru</span>
             </a>
             <a href="company-dashboard.html" class="group flex flex-col items-center p-3 rounded-xl dark:bg-surf-700 bg-white border dark:border-slate-700 border-slate-200 hover:border-brand-400 dark:hover:border-brand-400 transition-all shadow-sm cursor-pointer no-underline">
               <span class="text-xl mb-1">🏢</span>
-              <span class="text-xs font-medium dark:text-slate-300 text-slate-600 group-hover:text-brand-500 transition-colors">Company</span>
+              <span class="text-xs font-medium dark:text-slate-300 text-slate-600 group-hover:text-brand-500 transition-colors">Perusahaan</span>
             </a>
           </div>
         </div>
 
-        <button onclick="window.location='student-dashboard.html'" class="btn-primary mb-5">Sign in with Email</button>
+        <button onclick="window.location='student-dashboard.html'" class="btn-primary mb-5">Masuk dengan Email</button>
 
         <div class="flex items-center gap-3 mb-5">
           <div class="flex-1 h-px dark:bg-white/8 bg-slate-200"></div>
-          <span class="text-xs dark:text-slate-500 text-slate-400">or continue with</span>
+          <span class="text-xs dark:text-slate-500 text-slate-400">atau lanjutkan dengan</span>
           <div class="flex-1 h-px dark:bg-white/8 bg-slate-200"></div>
         </div>
         <div class="grid grid-cols-1 gap-3">
@@ -194,77 +158,57 @@
 
         </div>
         <p class="text-center text-sm dark:text-slate-400 text-slate-500 mt-6">
-          Don't have an account? <button onclick="switchTab('register')" class="text-brand-400 hover:text-brand-300 font-medium bg-transparent border-none cursor-pointer">Create one free</button>
+          Belum punya akun? <button onclick="switchTab('register')" class="text-brand-400 hover:text-brand-300 font-medium bg-transparent border-none cursor-pointer">Daftar gratis</button>
         </p>
       </div>
 
       <!-- ─── REGISTER ─── -->
       <div id="registerForm" class="hidden fade-in">
-        <h2 class="font-display text-3xl italic dark:text-white text-slate-900 mb-1">Get started free</h2>
-        <p class="text-sm dark:text-slate-400 text-slate-500 mb-6">Create your SkillBridge account in 30 seconds</p>
+        <h2 class="font-display text-3xl italic dark:text-white text-slate-900 mb-1">Mulai gratis</h2>
+        <p class="text-sm dark:text-slate-400 text-slate-500 mb-6">Buat akun KarierSMK kamu dalam 30 detik</p>
 
         <!-- Role selector -->
         <div class="mb-5">
-          <label class="block text-sm font-medium dark:text-slate-300 text-slate-700 mb-3">I am a...</label>
+          <label class="block text-sm font-medium dark:text-slate-300 text-slate-700 mb-3">Saya adalah...</label>
           <div class="flex gap-2.5">
             <div class="role-card role-selected" id="rc-student" onclick="selectRole('student')">
               <div class="text-2xl mb-2">🎓</div>
-              <div class="text-xs font-semibold dark:text-white text-slate-800">Student</div>
-              <div class="text-xs dark:text-slate-500 text-slate-400 mt-0.5">or Alumni</div>
+              <div class="text-xs font-semibold dark:text-white text-slate-800">Siswa</div>
+              <div class="text-xs dark:text-slate-500 text-slate-400 mt-0.5">atau Alumni</div>
             </div>
             <div class="role-card" id="rc-teacher" onclick="selectRole('teacher')">
               <div class="text-2xl mb-2">👨‍🏫</div>
-              <div class="text-xs font-semibold dark:text-white text-slate-800">Teacher</div>
-              <div class="text-xs dark:text-slate-500 text-slate-400 mt-0.5">or School</div>
+              <div class="text-xs font-semibold dark:text-white text-slate-800">Guru</div>
+              <div class="text-xs dark:text-slate-500 text-slate-400 mt-0.5">atau Sekolah</div>
             </div>
             <div class="role-card" id="rc-company" onclick="selectRole('company')">
               <div class="text-2xl mb-2">🏢</div>
-              <div class="text-xs font-semibold dark:text-white text-slate-800">Company</div>
-              <div class="text-xs dark:text-slate-500 text-slate-400 mt-0.5">or HR</div>
+              <div class="text-xs font-semibold dark:text-white text-slate-800">Perusahaan</div>
+              <div class="text-xs dark:text-slate-500 text-slate-400 mt-0.5">atau HRD</div>
             </div>
           </div>
         </div>
 
         <div class="space-y-3.5">
           <div class="grid grid-cols-2 gap-3">
-            <div><label class="block text-sm font-medium dark:text-slate-300 text-slate-700 mb-1.5">First name</label><input class="input-base" type="text" placeholder="Budi"/></div>
-            <div><label class="block text-sm font-medium dark:text-slate-300 text-slate-700 mb-1.5">Last name</label><input class="input-base" type="text" placeholder="Santoso"/></div>
+            <div><label class="block text-sm font-medium dark:text-slate-300 text-slate-700 mb-1.5">Nama depan</label><input class="input-base" type="text" placeholder="Budi"/></div>
+            <div><label class="block text-sm font-medium dark:text-slate-300 text-slate-700 mb-1.5">Nama belakang</label><input class="input-base" type="text" placeholder="Santoso"/></div>
           </div>
           <div><label class="block text-sm font-medium dark:text-slate-300 text-slate-700 mb-1.5">Email</label><input class="input-base" type="email" placeholder="budi@example.com"/></div>
-          <div><label class="block text-sm font-medium dark:text-slate-300 text-slate-700 mb-1.5">Password</label><input class="input-base" type="password" placeholder="Min. 8 characters"/></div>
-          <div><label class="block text-sm font-medium dark:text-slate-300 text-slate-700 mb-1.5">School / Institution</label><input class="input-base" type="text" placeholder="SMK Negeri 1 Jakarta"/></div>
+          <div><label class="block text-sm font-medium dark:text-slate-300 text-slate-700 mb-1.5">Kata Sandi</label><input class="input-base" type="password" placeholder="Min. 8 karakter"/></div>
+          <div><label class="block text-sm font-medium dark:text-slate-300 text-slate-700 mb-1.5">Sekolah / Institusi</label><input class="input-base" type="text" placeholder="SMK Negeri 1 Jakarta"/></div>
           <div class="flex items-start gap-2.5">
             <input type="checkbox" class="w-4 h-4 mt-0.5 accent-brand-500 rounded flex-shrink-0"/>
-            <span class="text-sm dark:text-slate-400 text-slate-500">I agree to the <a href="#" class="text-brand-400 hover:underline">Terms of Service</a> and <a href="#" class="text-brand-400 hover:underline">Privacy Policy</a></span>
+            <span class="text-sm dark:text-slate-400 text-slate-500">Saya setuju dengan <a href="#" class="text-brand-400 hover:underline">Ketentuan Layanan</a> dan <a href="#" class="text-brand-400 hover:underline">Kebijakan Privasi</a></span>
           </div>
-          <button onclick="window.location='student-dashboard.html'" class="btn-primary">Create Account →</button>
+          <button onclick="window.location='student-dashboard.html'" class="btn-primary">Buat Akun →</button>
         </div>
-        <p class="text-center text-sm dark:text-slate-400 text-slate-500 mt-5">Already have an account? <button onclick="switchTab('login')" class="text-brand-400 hover:text-brand-300 font-medium bg-transparent border-none cursor-pointer">Sign in</button></p>
+        <p class="text-center text-sm dark:text-slate-400 text-slate-500 mt-5">Sudah punya akun? <button onclick="switchTab('login')" class="text-brand-400 hover:text-brand-300 font-medium bg-transparent border-none cursor-pointer">Masuk</button></p>
       </div>
     </div>
   </div>
 </div>
 
-<script>
-function switchTab(tab){
-  const lf=document.getElementById('loginForm'),rf=document.getElementById('registerForm');
-  const lt=document.getElementById('loginTab'),rt=document.getElementById('registerTab');
-  if(tab==='login'){
-    lf.classList.remove('hidden');lf.classList.add('fade-in');
-    rf.classList.add('hidden');
-    lt.classList.remove('inactive-tab');lt.classList.add('active-tab');
-    rt.classList.remove('active-tab');rt.classList.add('inactive-tab');
-  }else{
-    rf.classList.remove('hidden');rf.classList.add('fade-in');
-    lf.classList.add('hidden');
-    rt.classList.remove('inactive-tab');rt.classList.add('active-tab');
-    lt.classList.remove('active-tab');lt.classList.add('inactive-tab');
-  }
-}
-function selectRole(r){
-  ['rc-student','rc-teacher','rc-company'].forEach(id=>document.getElementById(id).classList.remove('role-selected'));
-  document.getElementById('rc-'+r).classList.add('role-selected');
-}
-</script>
+<script src="./js/auth.js"></script>
 </body>
 </html>
